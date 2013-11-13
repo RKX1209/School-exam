@@ -49,47 +49,42 @@ int main(void){
   sign[14] = &XOR; sign[15] = &JZ; sign[16] = &JNZ; sign[17] = &IDIVL;
 
   //Code------
-  const WORD PROGRAM[] = {11,2,&eax,&MEMORY[ebp],//<input start(0)
+  const WORD PROGRAM[] = {11,2,&eax,&MEMORY[ebp],
 			  4,1,&eax,
   			  11,2,&eax,1,
   			  1,2,&scanf,&eax,
-			  5,0,//input end>(17)
+			  5,0,
 			  2,2,&ebx,&MEMORY[ebp],
 			  4,1,&ebx,
 			  11,2,&eax,1,
-			  //1,2,&printf,&eax,
 			  5,0,
 			  11,2,&ecx,2,
 			  11,2,&MEMORY[ebp + 6],0,
-			  2,2,&ebx,&ecx,//<loop start(42)
+			  2,2,&ebx,&ecx,
 			  4,1,&ecx,
-			  2,2,&MEMORY[ebp + 1],&ecx,//<gcd start(49)
+			  2,2,&MEMORY[ebp + 1],&ecx,
 			  11,2,&MEMORY[ebp + 2],60,
 			  11,2,&MEMORY[ebp + 3],0,
-			  17,2,&MEMORY[ebp + 1],&MEMORY[ebp + 2],//<gcd start(61)
+			  17,2,&MEMORY[ebp + 1],&MEMORY[ebp + 2],
 			  2,2,&MEMORY[ebp + 3],&edx,
 			  11,2,&edx,0,
 			  14,2,&MEMORY[ebp + 3],&edx,
 			  2,2,&MEMORY[ebp + 1],&MEMORY[ebp + 2],
 			  2,2,&MEMORY[ebp + 2],&MEMORY[ebp + 3],
 			  11,2,&eax,57,
-			  16,1,&eax,//gcd end>(89)
+			  16,1,&eax,
 			  2,2,&MEMORY[ebp + 4],&MEMORY[ebp + 1],
 			  11,2,&MEMORY[ebp + 5],1,
 			  2,2,&MEMORY[ebp + 7],&MEMORY[ebp + 4],
 			  14,2,&MEMORY[ebp + 7],&MEMORY[ebp + 5],
 			  11,2,&eax,114,
 			  16,1,&eax,
-			  8,1,&MEMORY[ebp + 6],//res++
+			  8,1,&MEMORY[ebp + 6],
 			  14,2,&ebx,&MEMORY[ebp],
 			  5,0,
-			  /* 4,1,&MEMORY[ebp + 4],//debug */
-			  /* 11,2,&esi,1,//debug */
-			  /* 1,2,&printf,&esi,//debug */
-			  /* 5,0,//debug */
 			  8,1,&ecx,			  
 			  11,2,&edx,38,
-			  16,1,&edx,//loop end>
+			  16,1,&edx,
 			  4,1,&MEMORY[ebp + 6],
 			  11,2,&esi,1,
 			  1,2,&printf,&esi,
@@ -104,7 +99,6 @@ void RUN_PROGRAM(const WORD* PROGRAM){
   eip = 0; esp = 0,ebp = 0;
   WORD word;
   for(word = PROGRAM[eip]; word != -1; word = PROGRAM[eip]){
-    //printf("%d: %d\t",eip,word);
     if(PROGRAM[eip + 1] == 0){
       WORD (*p)() = sign[word];
       (*p)();
@@ -115,7 +109,6 @@ void RUN_PROGRAM(const WORD* PROGRAM){
       WORD (*p)(WORD,WORD) = sign[word];
       (*p)(PROGRAM[eip + 2],PROGRAM[eip + 3]);
     }
-    //Debug();
   }
 }
 
